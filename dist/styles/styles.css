@@ -8,8 +8,9 @@ body {
       -ms-user-select: none;
           user-select: none;
   height: 100vh;
-  min-height: 40em;
   position: relative;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 main aside .task-view-as, main section .content .task {
@@ -52,11 +53,11 @@ main {
 }
 
 main aside {
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
   height: calc(100vh - clamp(16px, 10vw, 100px) - 45px);
   width: clamp(350px, 30vw, 400px);
   background-color: mintcream;
+  overflow: auto;
+  padding: 15px 10px;
 }
 
 main aside .view i {
@@ -73,6 +74,8 @@ main aside .projects div:first-child:hover {
 }
 
 main section {
+  height: calc(100vh - clamp(16px, 10vw, 100px) - 45px);
+  overflow-y: auto;
   width: 100%;
   background-color: oldlace;
 }
@@ -126,7 +129,7 @@ main section .content .task .second-group .delete:hover {
 footer {
   height: 45px;
   background-color: rgba(0, 0, 0, 0.4);
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   font-size: 20px;
@@ -151,10 +154,12 @@ footer i {
     display: block;
   }
   main aside {
-    position: fixed;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    position: absolute;
     height: calc(100vh - clamp(16px, 10vw, 100px) - 35px);
-    margin-left: -200px;
-    width: 200px;
+    margin-left: -250px;
+    width: 250px;
     z-index: 1;
   }
   main section .content {
@@ -192,6 +197,11 @@ footer i {
   footer {
     height: 25px;
     font-size: 11px;
+  }
+  main aside {
+    height: calc(100vh - clamp(16px, 10vw, 100px) - 25px);
+    width: 50vw;
+    padding: 5px 3px;
   }
 }
 /*# sourceMappingURL=styles.css.map */

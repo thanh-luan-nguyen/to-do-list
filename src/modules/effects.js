@@ -11,16 +11,16 @@ const dropDownEffect = () => {
 const navEffect = () => {
     const aside = document.querySelector('aside');
     document.querySelector('.openNav').addEventListener('click', () => {
-        if (aside.style.marginLeft === "-200px") {
+        if (aside.style.marginLeft === "-250px") {
             aside.style.marginLeft = "0";
         } else {
-            aside.style.marginLeft = "-200px";
+            aside.style.marginLeft = "-250px";
         }
     });
     const mq = window.matchMedia('(max-width: 850px)')
 
     function checkMediaWidthAndDoTasks(x) {
-        if (x.matches) { aside.style.marginLeft = "-200px"; } else { aside.style.marginLeft = "0px"; }
+        if (x.matches) { aside.style.marginLeft = "-250px"; } else { aside.style.marginLeft = "0px"; }
     }
     checkMediaWidthAndDoTasks(mq);
     mq.addListener(() => {
