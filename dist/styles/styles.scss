@@ -72,12 +72,24 @@ main {
         background-color: oldlace;
         .content {
             margin: 1.5em auto;
+            // max-width: 700px;
             width: 93%;
             .view-as {
                 font-size: 2em;
                 font-weight: 700;
                 margin-left: 1em;
                 margin-bottom: 8px;
+            }
+            .add-task {
+                @extend %shared-property;
+                display: flex;
+                justify-content: center;
+                padding: 14px 0;
+                * {
+                    span {
+                        margin-left: 10px;
+                    }
+                }
             }
             .task {
                 @extend %shared-property;
@@ -86,7 +98,7 @@ main {
                 align-items: center;
                 .second-group {
                     * {
-                        margin-left: 10px;
+                        margin-left: 8px;
                     }
                     button.details {
                         font-weight: 300;
@@ -146,14 +158,6 @@ footer {
             width: 250px;
             z-index: 1;
         }
-        section {
-            .content {
-                width: 97%;
-                button.details {
-                    display: none;
-                }
-            }
-        }
     }
     footer {
         height: 35px;
@@ -164,6 +168,14 @@ footer {
 @media (max-width: 650px) {
     body {
         font-size: 75%;
+    }
+    section {
+        .content {
+            width: 97%;
+        }
+        button.details {
+            display: none;
+        }
     }
 }
 

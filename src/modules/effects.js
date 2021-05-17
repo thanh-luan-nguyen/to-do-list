@@ -17,7 +17,13 @@ const navEffect = () => {
             aside.style.marginLeft = "-250px";
         }
     });
+
     const mq = window.matchMedia('(max-width: 850px)')
+    document.querySelector('section').addEventListener('click', () => {
+        if (mq.matches) {
+            aside.style.marginLeft = "-250px";
+        }
+    })
 
     function checkMediaWidthAndDoTasks(x) {
         if (x.matches) { aside.style.marginLeft = "-250px"; } else { aside.style.marginLeft = "0px"; }

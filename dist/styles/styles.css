@@ -13,13 +13,13 @@ body {
           box-sizing: border-box;
 }
 
-main aside .task-view-as, main section .content .task {
+main aside .task-view-as, main section .content .add-task, main section .content .task {
   font-weight: 300;
   font-size: 1.2em;
   padding: 8px 15px;
 }
 
-main aside .task-view-as:hover, main section .content .task:hover {
+main aside .task-view-as:hover, main section .content .add-task:hover, main section .content .task:hover {
   background-color: #e6e6e6;
   border-radius: 10px;
   cursor: pointer;
@@ -92,6 +92,20 @@ main section .content .view-as {
   margin-bottom: 8px;
 }
 
+main section .content .add-task {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 14px 0;
+}
+
+main section .content .add-task * span {
+  margin-left: 10px;
+}
+
 main section .content .task {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -105,7 +119,7 @@ main section .content .task {
 }
 
 main section .content .task .second-group * {
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 main section .content .task .second-group button.details {
@@ -162,12 +176,6 @@ footer i {
     width: 250px;
     z-index: 1;
   }
-  main section .content {
-    width: 97%;
-  }
-  main section .content button.details {
-    display: none;
-  }
   footer {
     height: 35px;
     font-size: 15px;
@@ -177,6 +185,12 @@ footer i {
 @media (max-width: 650px) {
   body {
     font-size: 75%;
+  }
+  section .content {
+    width: 97%;
+  }
+  section button.details {
+    display: none;
   }
 }
 
