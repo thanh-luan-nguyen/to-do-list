@@ -1,0 +1,197 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+body {
+  color: white;
+  background-color: oldlace;
+  font-family: 'Roboto', sans-serif;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  height: 100vh;
+  min-height: 40em;
+  position: relative;
+}
+
+main aside .task-view-as, main section .content .task {
+  font-weight: 300;
+  font-size: 1.2em;
+  padding: 8px 15px;
+}
+
+main aside .task-view-as:hover, main section .content .task:hover {
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+main section .content .task .second-group .edit:hover,
+main section .content .task .second-group .delete:hover, footer i:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+header {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  height: clamp(16px, 10vw, 100px);
+}
+
+header button.openNav {
+  position: absolute;
+  left: 0;
+  display: none;
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+}
+
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+main aside {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  height: calc(100vh - clamp(16px, 10vw, 100px) - 45px);
+  width: clamp(350px, 30vw, 400px);
+  background-color: mintcream;
+}
+
+main aside .view i {
+  margin-right: 1em;
+}
+
+main aside .projects span:first-child {
+  font-size: 1.8em;
+  font-weight: 700;
+}
+
+main aside .projects div:first-child:hover {
+  cursor: pointer;
+}
+
+main section {
+  width: 100%;
+  background-color: oldlace;
+}
+
+main section .content {
+  margin: 1.5em auto;
+  width: 93%;
+}
+
+main section .content .view-as {
+  font-size: 2em;
+  font-weight: 700;
+  margin-left: 1em;
+  margin-bottom: 8px;
+}
+
+main section .content .task {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main section .content .task .second-group * {
+  margin-left: 10px;
+}
+
+main section .content .task .second-group button.details {
+  font-weight: 300;
+  padding: 4px 10px;
+}
+
+main section .content .task .second-group button.details:hover {
+  -webkit-transform: scale(1.02);
+          transform: scale(1.02);
+}
+
+main section .content .task .second-group .date {
+  font-size: 0.8em;
+}
+
+main section .content .task .second-group .delete:hover {
+  color: red;
+}
+
+footer {
+  height: 45px;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 20px;
+}
+
+footer i {
+  margin-left: 5px;
+}
+
+@media (max-width: 850px) {
+  body {
+    font-size: 88%;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+  }
+  header {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  header button.openNav {
+    display: block;
+  }
+  main aside {
+    position: fixed;
+    height: calc(100vh - clamp(16px, 10vw, 100px) - 35px);
+    margin-left: -200px;
+    width: 200px;
+    z-index: 1;
+  }
+  main section .content {
+    width: 97%;
+  }
+  main section .content button.details {
+    display: none;
+  }
+  footer {
+    height: 35px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 650px) {
+  body {
+    font-size: 75%;
+  }
+}
+
+@media (max-width: 450px) {
+  body {
+    font-size: 55%;
+  }
+  header {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  header button.openNav {
+    margin-left: 5px !important;
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+  footer {
+    height: 25px;
+    font-size: 11px;
+  }
+}
+/*# sourceMappingURL=styles.css.map */
