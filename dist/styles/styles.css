@@ -73,6 +73,17 @@ main aside .projects div:first-child:hover {
   cursor: pointer;
 }
 
+main aside .projects .project-names div i {
+  display: inline-block;
+  width: 14px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+main aside .projects .project-names div i:hover {
+  color: red !important;
+}
+
 main section {
   height: calc(100vh - clamp(16px, 10vw, 100px) - 45px);
   overflow-y: auto;
@@ -136,8 +147,12 @@ main section .content .task .second-group .date {
   font-size: 0.8em;
 }
 
+main section .content .task .second-group .delete {
+  color: rgba(0, 0, 0, 0.2);
+}
+
 main section .content .task .second-group .delete:hover {
-  color: red;
+  color: red !important;
 }
 
 footer {

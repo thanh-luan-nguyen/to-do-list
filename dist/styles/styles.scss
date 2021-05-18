@@ -63,6 +63,18 @@ main {
                     cursor: pointer;
                 }
             }
+            .project-names {
+                div {
+                    i {
+                        display: inline-block;
+                        width: 14px;
+                        transition: 0.3s;
+                        &:hover {
+                            color: red !important;
+                        }
+                    }
+                }
+            }
         }
     }
     section {
@@ -115,8 +127,9 @@ main {
                         font-size: 0.8em;
                     }
                     .delete {
+                        color: rgba(0, 0, 0, 0.2);
                         &:hover {
-                            color: red;
+                            color: red !important;
                         }
                     }
                 }

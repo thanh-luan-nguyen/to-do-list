@@ -22,99 +22,116 @@
     </header>
 
     <main class="text-dark ">
+        <div class="modal fade" id="add-or-edit-task" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form action="">
+                        <div class="modal-body">
 
-        <aside>
+                            <div class="form-floating mb-1">
+                                <input type="text" class="form-control shadow-none border-0 border-bottom" id="title" placeholder="." xyz required>
+                                <label for="title">Task title</label>
+                            </div>
 
-            <div>
+                            <div class="word-count text-end" title-limit style="color:rgba(0, 0, 0, 0.5)"><span title-count>0</span>/30</div>
 
-                <div class="view mb-3">
-                    <div class="task-view-as "><i class="fas fa-hdd "></i><span>All</span></div>
-                    <div class="task-view-as "><i class="fas fa-calendar-day "></i><span>Today</span></div>
-                    <div class="task-view-as "><i class="fas fa-calendar-week "></i><span>This Week</span></div>
-                </div>
+                            <div class="form-floating mb-1">
+                                <textarea class="form-control border-0 border-bottom shadow-none" placeholder="Detailed Description" id="description" style="height: 100px;resize:none;" xyz></textarea>
+                                <label for="description">Detailed Description</label>
+                            </div>
 
-                <div class="projects">
-                    <div class="ms-2 mb-2 d-flex align-items-center justify-content-between pe-4 " data-bs-toggle="collapse" data-bs-target="#collapse-content" data-projects-dropdown>
-                        <span>Projects</span>
-                        <i class="fas fa-caret-down "></i>
-                    </div>
-                    <div class="collapse" id="collapse-content">
+                            <div class="word-count text-end mb-2" description-limit style="color:rgba(0, 0, 0, 0.5)"><span description-count>0</span>/120</div>
 
-                        <div class="task-view-as "><i class="fas fa-plus me-3 "></i><span>Add Project</span></div>
-
-                        <div class="tasks">
-                            <div class="task-view-as "><i class="fas fa-tasks me-3 "></i><span>The odin project</span>
+                            <div class="row">
+                                <div class="col">
+                                    <input id="date" type="date" class="form-control border-0 border-bottom shadow-none">
+                                </div>
+                                <div class="col">
+                                    <select id="priority" class="form-control border-0 border-bottom shadow-none">
+                                        <option value="priority" selected disabled>Priority</option>
+                                        <option value="urgent" class="text-danger">Urgent</option>
+                                        <option value="important" class="text-warning">Important</option>
+                                        <option value="normal" class="text-success">Normal</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-
-                    </div>
+                        <div class="modal-footer border-top-0">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary" add-button>Add</button>
+                        </div>
+                    </form>
                 </div>
-
             </div>
+        </div>
+
+        <aside>
+            <div class="view mb-3">
+                <div class="task-view-as"><i class="fas fa-hdd "></i><span>All</span></div>
+                <div class="task-view-as"><i class="fas fa-calendar-day "></i><span>Today</span></div>
+                <div class="task-view-as"><i class="fas fa-calendar-week "></i><span>This Week</span></div>
+            </div>
+
+            <div class="projects">
+                <div class="ms-2 mb-2 d-flex align-items-center justify-content-between pe-4 " data-bs-toggle="collapse" data-bs-target="#collapse-content" data-projects-dropdown>
+                    <span>Projects</span>
+                    <i class="fas fa-caret-down "></i>
+                </div>
+                <div class="collapse" id="collapse-content">
+
+                    <div class="task-view-as "><i class="fas fa-plus me-3 "></i><span>Add Project</span></div>
+
+                    <div class="project-names">
+                        <div class="task-view-as" data-project-name><i class="fas fa-tasks me-3"></i><span>The odin project</span>
+                        </div>
+                        <div class="task-view-as" data-project-name><i class="fas fa-tasks me-3"></i><span>freeCodeCamp</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
 
         </aside>
 
         <section style="grid-column-start: 2; ">
 
-            <div class="content ">
-
-
+            <div class="content">
 
                 <div class="view-as d-flex justify-content-between">
                     <span>All</span>
                     <div class="btn-group dropdown">
-                        <button type="button" class="btn dropdown-toggle shadow-none " data-bs-toggle="dropdown"><span>Sort by</span>: <em class="me-1 ">priority</em></button>
-                        <ul class="dropdown-menu ">
-                            <li class="dropdown-item">default</li>
-                            <li class="dropdown-item">date</li>
-                            <li class="dropdown-item">priority</li>
+                        <button type="button" class="btn dropdown-toggle shadow-none " data-bs-toggle="dropdown"><span>Sort by</span>: <em class="me-1 " sort-by>default</em></button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item" data-sort>default</li>
+                            <li class="dropdown-item" data-sort>date</li>
+                            <li class="dropdown-item" data-sort>priority</li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="add-task" data-bs-toggle="modal" data-bs-target="#add-task">
+                <div class="add-task mb-2" data-bs-toggle="modal" data-bs-target="#add-or-edit-task">
                     <i class="fas fa-plus me-3 "><span>New Task</span></i>
                 </div>
 
-                <div class="modal fade" id="add-task" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control shadow-none border-0 border-bottom" id="title" placeholder=".">
-                                    <label for="title">Task title</label>
-                                </div>
-                                <div class="form-floating">
-                                    <textarea class="form-control border-0 border-bottom shadow-none" placeholder="Detailed Description" id="description" style="height: 100px;resize:none;"></textarea>
-                                    <label for="description">Detailed Description</label>
-                                </div>
-                            </div>
-                            <div class="modal-footer border-top-0">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary">Add</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="task-list ">
+                <div class="task-list">
                     <div>
-                        <div class="task ">
-                            <div class="first-group "><input class="form-check-input shadow-none me-3 " type="checkbox" value=" " id="done? " /><span>complete the to-do-list project</span></div>
-                            <div class="second-group ">
-                                <button type="button " class="details btn btn-secondary shadow-none ">Details</button>
-                                <span class="date ">2021/05/16</span>
-                                <i class="fas fa-edit edit "></i>
-                                <i class="fas fa-trash-alt delete "></i>
+                        <div class="task">
+                            <div class="first-group"><input class="form-check-input shadow-none me-3 " type="checkbox" value=" " id="done?" /><span>complete the to-do-list project</span></div>
+                            <div class="second-group">
+                                <button type="button" class="details btn btn-secondary shadow-none ">Details</button>
+                                <span class="date">05/16</span>
+                                <i class="fas fa-edit edit" data-bs-toggle="modal" data-bs-target="#add-or-edit-task"></i>
+                                <i class="fas fa-trash-alt delete"></i>
                             </div>
                         </div>
-                        <div class="task ">
-                            <div class="first-group "><input class="form-check-input shadow-none me-3 " type="checkbox" value=" " id="done? " /><span>master OOP concepts</span></div>
-                            <div class="second-group ">
-                                <button type="button " class="details btn btn-secondary shadow-none ">Details</button>
-                                <span class="date ">2021/06/08</span>
-                                <i class="fas fa-edit edit "></i>
-                                <i class="fas fa-trash-alt delete "></i>
+                        <div class="task">
+                            <div class="first-group"><input class="form-check-input shadow-none me-3" type="checkbox" value=" " id="done?" /><span>master OOP concepts</span></div>
+                            <div class="second-group">
+                                <button type="button" class="details btn btn-secondary shadow-none ">Details</button>
+                                <span class="date">06/08</span>
+                                <i class="fas fa-edit edit" data-bs-toggle="modal" data-bs-target="#add-task"></i>
+                                <i class="fas fa-trash-alt delete"></i>
                             </div>
                         </div>
 
@@ -132,5 +149,6 @@
         ></p>
       </div>
     </footer>
+
   </body>
 </html>
