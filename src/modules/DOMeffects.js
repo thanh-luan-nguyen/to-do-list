@@ -19,7 +19,7 @@ export const performAllEffects = function() {
             }
         });
 
-        const mq = window.matchMedia('(max-width: 850px)')
+        const mq = window.matchMedia('(max-width: 950px)')
         document.querySelector('section').addEventListener('click', () => {
             if (mq.matches) {
                 aside.style.marginLeft = "-250px";
@@ -58,27 +58,32 @@ export const performAllEffects = function() {
         }))
     })();
 
-    (function countCharacterEffect() {
-        const xyz = document.querySelectorAll('[xyz]');
-        xyz.forEach(e => e.addEventListener('input', () => {
+    (function charLimiter() {
+        function checkLength(x, a, y) {
+            if (y.value.length < x) {
+                document.querySelector(`[${a}-limit]`).style.color = "rgba(0, 0, 0, 0.5)";
+                document.querySelector(`[${a}-count]`).innerText = y.value.length;
+            } else if (y.value.length === x) {
+                document.querySelector(`[${a}-limit]`).style.color = "red";
+                document.querySelector(`[${a}-count]`).innerText = y.value.length;
+            } else if (y.value.length > x) {
+                y.value = y.value.slice(0, x);
+            }
+        }
+
+        const abc = document.querySelector('#project-title');
+        abc.addEventListener('input', () => {
+            checkLength(20, "project-title", abc)
+        });
+
+        document.querySelectorAll('[xyz]').forEach(e => e.addEventListener('input', () => {
             if (e.getAttribute('id') === "title") {
-                checkLength(30, "title");
+                checkLength(30, "title", e);
             }
             if (e.getAttribute('id') === "description") {
-                checkLength(120, "description");
+                checkLength(200, "description", e);
             };
-
-            function checkLength(x, a) {
-                if (e.value.length < x) {
-                    document.querySelector(`[${a}-limit]`).style.color = "rgba(0, 0, 0, 0.5)";
-                    document.querySelector(`[${a}-count]`).innerText = e.value.length;
-                } else if (e.value.length === x) {
-                    document.querySelector(`[${a}-limit]`).style.color = "red";
-                    document.querySelector(`[${a}-count]`).innerText = e.value.length;
-                } else if (e.value.length > x) {
-                    e.value = e.value.slice(0, x);
-                }
-            }
         }));
     })();
+
 };

@@ -22,7 +22,6 @@ main aside .task-view-as, main section .content .add-task, main section .content
 main aside .task-view-as:hover, main section .content .add-task:hover, main section .content .task:hover {
   background-color: #e6e6e6;
   border-radius: 10px;
-  cursor: pointer;
 }
 
 main section .content .task .second-group .edit:hover,
@@ -103,6 +102,11 @@ main section .content .view-as {
   margin-bottom: 8px;
 }
 
+main section .content .view-as [sort-by] {
+  display: inline-block;
+  width: 48px;
+}
+
 main section .content .add-task {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -111,6 +115,7 @@ main section .content .add-task {
       -ms-flex-pack: center;
           justify-content: center;
   padding: 14px 0;
+  cursor: pointer;
 }
 
 main section .content .add-task * span {
@@ -129,21 +134,33 @@ main section .content .task {
           align-items: center;
 }
 
+main section .content .task .first-group #done:hover {
+  cursor: pointer;
+}
+
 main section .content .task .second-group * {
   margin-left: 8px;
 }
 
-main section .content .task .second-group button.details {
+main section .content .task .second-group button {
+  font-size: inherit;
   font-weight: 300;
   padding: 4px 10px;
 }
 
-main section .content .task .second-group button.details:hover {
+main section .content .task .second-group button:hover {
   -webkit-transform: scale(1.02);
           transform: scale(1.02);
 }
 
-main section .content .task .second-group .date {
+main section .content .task .second-group .edit,
+main section .content .task .second-group .delete {
+  cursor: pointer;
+}
+
+main section .content .task .second-group span.date {
+  display: inline-block;
+  width: 36px;
   font-size: 0.8em;
 }
 
@@ -168,9 +185,15 @@ footer i {
   margin-left: 5px;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1200px) {
+  aside {
+    font-size: 85%;
+  }
+}
+
+@media (max-width: 950px) {
   body {
-    font-size: 88%;
+    font-size: 85%;
     -webkit-transition: 0.5s;
     transition: 0.5s;
   }
@@ -204,8 +227,9 @@ footer i {
   section .content {
     width: 97%;
   }
-  section button.details {
-    display: none;
+  section .second-group span.date,
+  section .second-group i:first-child {
+    display: none !important;
   }
 }
 
@@ -231,6 +255,9 @@ footer i {
     height: calc(100vh - clamp(16px, 10vw, 100px) - 25px);
     width: 50vw;
     padding: 5px 3px;
+  }
+  main section .content {
+    width: 100%;
   }
 }
 /*# sourceMappingURL=styles.css.map */
