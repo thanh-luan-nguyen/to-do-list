@@ -16,7 +16,6 @@ body {
     &:hover {
         background-color: rgb(230, 230, 230);
         border-radius: 10px;
-        cursor: pointer;
     }
 }
 
@@ -91,12 +90,17 @@ main {
                 font-weight: 700;
                 margin-left: 1em;
                 margin-bottom: 8px;
+                [sort-by] {
+                    display: inline-block;
+                    width: 48px;
+                }
             }
             .add-task {
                 @extend %shared-property;
                 display: flex;
                 justify-content: center;
                 padding: 14px 0;
+                cursor: pointer;
                 * {
                     span {
                         margin-left: 10px;
@@ -108,11 +112,17 @@ main {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                .first-group {
+                    #done:hover {
+                        cursor: pointer;
+                    }
+                }
                 .second-group {
                     * {
                         margin-left: 8px;
                     }
-                    button.details {
+                    button {
+                        font-size: inherit;
                         font-weight: 300;
                         padding: 4px 10px;
                         &:hover {
@@ -122,8 +132,11 @@ main {
                     .edit,
                     .delete {
                         @extend %transform;
+                        cursor: pointer;
                     }
-                    .date {
+                    span.date {
+                        display: inline-block;
+                        width: 36px;
                         font-size: 0.8em;
                     }
                     .delete {
@@ -151,9 +164,15 @@ footer {
     }
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1200px) {
+    aside {
+        font-size: 85%;
+    }
+}
+
+@media (max-width: 950px) {
     body {
-        font-size: 88%;
+        font-size: 85%;
         transition: 0.5s;
     }
     header {
@@ -186,8 +205,11 @@ footer {
         .content {
             width: 97%;
         }
-        button.details {
-            display: none;
+        .second-group {
+            span.date,
+            i:first-child {
+                display: none !important;
+            }
         }
     }
 }
@@ -212,6 +234,11 @@ footer {
             height: calc(100vh - clamp(16px, 10vw, 100px) - 25px);
             width: 50vw;
             padding: 5px 3px;
+        }
+        section {
+            .content {
+                width: 100%;
+            }
         }
     }
 }
