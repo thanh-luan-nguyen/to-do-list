@@ -14,6 +14,7 @@ body {
 }
 
 main aside .task-view-as, main section .content .add-task, main section .content .task {
+  cursor: pointer;
   font-weight: 300;
   font-size: 1.2em;
   padding: 8px 15px;
@@ -115,7 +116,6 @@ main section .content .add-task {
       -ms-flex-pack: center;
           justify-content: center;
   padding: 14px 0;
-  cursor: pointer;
 }
 
 main section .content .add-task * span {
@@ -132,6 +132,7 @@ main section .content .task {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  cursor: initial;
 }
 
 main section .content .task .first-group #done:hover {

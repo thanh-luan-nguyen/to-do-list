@@ -10,6 +10,7 @@ body {
 }
 
 %shared-property {
+    cursor: pointer;
     font-weight: 300;
     font-size: 1.2em;
     padding: 8px 15px;
@@ -100,7 +101,6 @@ main {
                 display: flex;
                 justify-content: center;
                 padding: 14px 0;
-                cursor: pointer;
                 * {
                     span {
                         margin-left: 10px;
@@ -112,6 +112,7 @@ main {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                cursor: initial;
                 .first-group {
                     #done:hover {
                         cursor: pointer;

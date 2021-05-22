@@ -43,21 +43,6 @@ export const performAllEffects = function() {
         }))
     })();
 
-    (function deleteProjectEffect() {
-        const dataProjectNames = document.querySelectorAll('[data-project-name]');
-        dataProjectNames.forEach(e => e.addEventListener('mouseover', () => {
-            const icon = e.querySelector('i');
-            icon.style.cssText = "color:rgba(0, 0, 0, 0.2);"
-            icon.classList.replace('fa-tasks', 'fa-trash-alt');
-
-        }))
-        dataProjectNames.forEach(e => e.addEventListener('mouseout', () => {
-            const icon = e.querySelector('i');
-            icon.classList.replace('fa-trash-alt', 'fa-tasks');
-            icon.style.color = "black"
-        }))
-    })();
-
     (function charLimiter() {
         function checkLength(x, a, y) {
             if (y.value.length < x) {
@@ -86,4 +71,19 @@ export const performAllEffects = function() {
         }));
     })();
 
+};
+
+export function deleteProjectEffect() {
+    const dataProjectNames = document.querySelectorAll('[data-project-name]');
+    dataProjectNames.forEach(e => e.addEventListener('mouseover', () => {
+        const icon = e.querySelector('i');
+        icon.style.cssText = "color:rgba(0, 0, 0, 0.2);"
+        icon.classList.replace('fa-tasks', 'fa-trash-alt');
+
+    }))
+    dataProjectNames.forEach(e => e.addEventListener('mouseout', () => {
+        const icon = e.querySelector('i');
+        icon.classList.replace('fa-trash-alt', 'fa-tasks');
+        icon.style.color = "black"
+    }))
 };
