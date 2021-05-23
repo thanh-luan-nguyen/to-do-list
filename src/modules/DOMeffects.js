@@ -43,35 +43,35 @@ export const performAllEffects = function() {
         }))
     })();
 
-    (function charLimiter() {
-        function checkLength(x, a, y) {
-            if (y.value.length < x) {
-                document.querySelector(`[${a}-limit]`).style.color = "rgba(0, 0, 0, 0.5)";
-                document.querySelector(`[${a}-count]`).innerText = y.value.length;
-            } else if (y.value.length === x) {
-                document.querySelector(`[${a}-limit]`).style.color = "red";
-                document.querySelector(`[${a}-count]`).innerText = y.value.length;
-            } else if (y.value.length > x) {
-                y.value = y.value.slice(0, x);
-            }
-        }
-
-        const abc = document.querySelector('#project-title');
-        abc.addEventListener('input', () => {
-            checkLength(20, "project-title", abc)
-        });
-
-        document.querySelectorAll('[xyz]').forEach(e => e.addEventListener('input', () => {
-            if (e.getAttribute('id') === "title") {
-                checkLength(30, "title", e);
-            }
-            if (e.getAttribute('id') === "description") {
-                checkLength(200, "description", e);
-            };
-        }));
-    })();
-
 };
+
+// export function charLimiter(id = '') {
+//     function checkLength(x, a, y) {
+//         if (y.value.length < x) {
+//             document.querySelector(`[${id}-${a}-limit]`).style.color = "rgba(0, 0, 0, 0.5)";
+//             document.querySelector(`[${id}-${a}-count]`).innerText = y.value.length;
+//         } else if (y.value.length === x) {
+//             document.querySelector(`[${id}-${a}-limit]`).style.color = "red";
+//             document.querySelector(`[${id}-${a}-count]`).innerText = y.value.length;
+//         } else if (y.value.length > x) {
+//             y.value = y.value.slice(0, x);
+//         }
+//     }
+
+//     const abc = document.querySelector('#project-title');
+//     abc.addEventListener('input', () => {
+//         checkLength(20, "project-title", abc)
+//     });
+
+//     document.querySelectorAll(`[xyz${id}]`).forEach(e => e.addEventListener('input', () => {
+//         if (e.getAttribute('id') === `title${id}`) {
+//             checkLength(30, "title", e);
+//         }
+//         if (e.getAttribute('id') === `description${id}`) {
+//             checkLength(200, "description", e);
+//         };
+//     }));
+// };
 
 // export function deleteProjectEffect() {
 //     const dataProjectNames = document.querySelectorAll('[data-project-name]');

@@ -25,13 +25,11 @@
         <div class="modal fade" id="add-project" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <form action="">
+                    <form>
                         <div class="modal-body text-center">
                             <label for="project-title" class=" fs-3">New Project</label>
-
-                            <div class="word-count text-end ms-2" project-title-limit style="color:rgba(0, 0, 0, 0.5);display:inline;"><span project-title-count>0</span>/20</div>
-
-                            <input type="text" class="form-control shadow-none mt-2" id="project-title" required>
+                            <div class="text-end" style="color:rgba(0, 0, 0, 0.5)">Max: 20</div>
+                            <input type="text" class="form-control shadow-none mt-2 text-center" id="project-title" maxlength="20" required>
 
                         </div>
                         <div class="container p-3 pt-0 text-center">

@@ -1,4 +1,4 @@
-import { performAllEffects, deleteProjectEffect } from './modules/DOMeffects'
+import { performAllEffects } from './modules/DOMeffects'
 import { selectElement, selectAllElements, clearForm, reset, initProject, createProjectPage, addOneTask, getFromStorage, updateStorage } from './modules/functions'
 import { Task, Project } from './modules/classes'
 
@@ -23,6 +23,8 @@ selectElement('[add-project-button]').addEventListener('click', (e) => {
 })
 
 function displayAll() {
+
+
     selectElement('[project-list]').innerHTML = '';
     for (let project of projectList) {
         let projectName = project.title;
@@ -37,7 +39,7 @@ function displayAll() {
             createProjectPage(project);
 
             for (let task of project[0].tasks) {
-                addOneTask(task.title, task.description, task.date, task.priority, project[0].title);
+                addOneTask(task.title, task.description, task.date, task.priority, project, task.id);
             }
             selectElement(`#addTask${project[0].id}`).addEventListener('click', (e) => {
                 e.preventDefault();
@@ -48,11 +50,9 @@ function displayAll() {
                 const newTask = new Task(title, description, date, priority);
                 project.push(newTask);
 
-                addOneTask(title, description, date, priority, project[0].title);
+                addOneTask(title, description, date, priority, project, newTask.id);
 
                 clearForm(`${project[0].id}`)
-                reset("title")
-                reset("description")
             })
         })
     }
