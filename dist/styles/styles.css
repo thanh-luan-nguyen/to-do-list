@@ -76,12 +76,6 @@ main aside .projects div:first-child:hover {
 main aside .projects .project-names div i {
   display: inline-block;
   width: 14px;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
-main aside .projects .project-names div i:hover {
-  color: red !important;
 }
 
 main section {
@@ -171,6 +165,23 @@ main section .content .task .second-group .delete {
 
 main section .content .task .second-group .delete:hover {
   color: red !important;
+}
+
+main section .content .delete-project-button {
+  font-size: 30px;
+  position: absolute;
+  bottom: 65px;
+  right: 20px;
+  opacity: 0.5;
+}
+
+main section .content .delete-project-button:hover {
+  opacity: 1;
+  cursor: pointer;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  -webkit-transform: scale(1.3) rotate(90deg);
+          transform: scale(1.3) rotate(90deg);
 }
 
 footer {
