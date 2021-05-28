@@ -79,10 +79,11 @@ main {
     }
     section {
         height: calc(100vh - clamp(16px, 10vw, 100px) - 45px);
-        overflow-y: auto;
+        overflow: auto;
         width: 100%;
         background-color: oldlace;
         .content {
+            overflow: hidden;
             margin: 1.5em auto;
             // max-width: 700px;
             width: 93%;

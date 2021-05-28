@@ -80,12 +80,13 @@ main aside .projects .project-names div i {
 
 main section {
   height: calc(100vh - clamp(16px, 10vw, 100px) - 45px);
-  overflow-y: auto;
+  overflow: auto;
   width: 100%;
   background-color: oldlace;
 }
 
 main section .content {
+  overflow: hidden;
   margin: 1.5em auto;
   width: 93%;
 }

@@ -1,5 +1,5 @@
 import { performAllEffects } from './modules/DOMeffects'
-import { selectElement, selectAllElements, clearForm, reset, initProject, createProjectPage, addOneTask, getFromStorage, updateStorage } from './modules/functions'
+import { selectElement, selectAllElements, clearForm, initProject, createProjectPage, addOneTask, updateTask, getFromStorage, updateStorage } from './modules/functions'
 import { Task, Project } from './modules/classes'
 
 performAllEffects();
@@ -19,52 +19,90 @@ selectElement('[add-project-button]').addEventListener('click', (e) => {
     updateStorage(projectList);
     displayAll();
     selectElement('#project-title').value = "";
-    reset("project-title");
 })
 
+let currentProjectID = '';
+
 function displayAll() {
-
-
+    projectList = getFromStorage();
     selectElement('[project-list]').innerHTML = '';
     for (let project of projectList) {
         let projectName = project.title;
         selectElement('[project-list]').innerHTML += `<div class="task-view-as" data-project-name id="${project.id}"><i class="fas fa-tasks me-3"></i><span>${projectName}</span></div>`
     }
-    for (let DOMProject of selectAllElements('[data-project-name]')) {
 
-        const project = projectList.filter(project => project.id === DOMProject.id)
+    selectAllElements('[data-project-name]').forEach(DOMProject => {
+        const project = projectList.filter(project => project.id === DOMProject.id)[0]
+
         DOMProject.addEventListener('click', (e) => {
             e.stopPropagation();
 
-            createProjectPage(project);
+            currentProjectID = project.id;
 
-            for (let task of project[0].tasks) {
-                addOneTask(task.title, task.description, task.date, task.priority, project, task.id);
-            }
-            selectElement(`#addTask${project[0].id}`).addEventListener('click', (e) => {
-                e.preventDefault();
-                selectElement('[cancel-button]').click();
+            createProjectPage(project, projectList);
 
-                let [title, description, date, priority] = [selectElement(`#title${project[0].id}`).value, selectElement(`#description${project[0].id}`).value, selectElement(`#date${project[0].id}`).value, selectElement(`#priority${project[0].id}`).value];
-
-                const newTask = new Task(title, description, date, priority);
-                project.push(newTask);
-
-                addOneTask(title, description, date, priority, project, newTask.id);
-
-                clearForm(`${project[0].id}`)
+            project.tasks.forEach(task => {
+                addOneTask(project, task.title, task.done, task.description, task.date, task.priority, task.id, projectList);
             })
+
+            selectAllElements(`[edit-task]`).forEach(edit => edit.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const id = edit.getAttribute('task-id');
+
+                selectElement(`[${id}-cancel-update-button]`).click();
+
+                let [title, description, date, priority] = [selectElement(`#title${id}`).value, selectElement(`#description${id}`).value, selectElement(`#date${id}`).value, selectElement(`#priority${id}`).value];
+                updateTask(project, title, description, date, priority, id, projectList)
+
+                const task = project.tasks.filter(task => task.id === id)[0];
+                [task.title, task.description, task.date, task.priority] = [title, description, date, priority];
+
+                updateStorage(projectList);
+            }))
+
+            selectAllElements("[delete-task]").forEach(button => button.addEventListener('click', () => {
+                const id = button.id;
+
+                selectElement(`.TASK${id}`).innerHTML = ``;
+
+                project.tasks = project.tasks.filter(task => task.id != id);
+
+                updateStorage(projectList);
+            }))
         })
-    }
+    })
+
 }
+
 displayAll();
 
-// function addProject(e) {
-//     e.preventDefault();
-//     selectElement('[cancel-project-button]').click();
-//     let projectName = selectElement('#project-title').value;
-//     selectElement('[project-list]').innerHTML += `<div class="task-view-as" data-project-name><i class="fas fa-tasks me-3"></i><span>${projectName}</span></div>`
-//     selectElement('#project-title').value = "";
-//     reset("project-title");
-//// deleteProjectEffect();
-// }
+selectElement(`#add-task-form`).addEventListener('submit', (e) => {
+    e.preventDefault();
+    selectElement(`[cancel-button]`).click();
+
+    projectList = getFromStorage();
+    const project = projectList.filter(project => project.id === currentProjectID)[0]
+
+    let [title, description, date, priority] = [selectElement(`#title`).value, selectElement(`#description`).value, selectElement(`#date`).value, selectElement(`#priority`).value];
+
+    const newTask = new Task(project.title, title, description, date, priority);
+    project.tasks.push(newTask);
+
+    addOneTask(project, title, description, date, priority, newTask.id, projectList);
+
+
+    selectAllElements("[delete-task]").forEach(button => button.addEventListener('click', () => {
+        const id = button.id;
+
+        selectElement(`.TASK${id}`).innerHTML = ``;
+
+        project.tasks = project.tasks.filter(task => task.id != id);
+
+        updateStorage(projectList);
+    }))
+
+    selectAllElements()
+
+    updateStorage(projectList);
+    clearForm()
+});
