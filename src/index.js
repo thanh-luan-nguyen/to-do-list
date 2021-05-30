@@ -46,25 +46,24 @@ function displayAll() {
                 addOneTask(project_1, task.title, task.done, task.description, task.date, task.priority, task.id, projectList);
             })
 
-            selectAllElements('#done').forEach(done => done.addEventListener('click', () => {
-                const id = done.getAttribute('done-id');
+            selectAllElements('#done').forEach(doneInput => doneInput.addEventListener('click', () => {
+                const taskID = doneInput.getAttribute('done-id');
 
                 projectList = getFromStorage();
-                const project_2 = projectList.filter(project => project.id === DOMProject.id)[0];
-                const task = project_2.tasks.filter(task => task.id === id)[0];
-                done.addEventListener('change', () => {
+                const project_2 = projectList.filter(project_ => project_.id === project.id)[0];
+                const task = project_2.tasks.filter(task => task.id === taskID)[0];
 
-                    task.done = done.checked ? true : false;
-                    updateStorage(projectList);
-                    if (done.checked == true) {
-                        selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,0.2)";
-                        selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "0.05";
-                    } else {
-                        selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,1)";
-                        selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "1";
-                    }
+                if (doneInput.checked) {
+                    selectElement(`.TASK${taskID}`).style.color = "rgb(0,0,0,0.2)";
+                    selectElement(`.TASK${taskID}`).querySelector('.details').style.opacity = "0.05";
+                    task.done = true;
+                } else if (doneInput.checked == false) {
+                    selectElement(`.TASK${taskID}`).style.color = "rgb(0,0,0,1)";
+                    selectElement(`.TASK${taskID}`).querySelector('.details').style.opacity = "1";
+                    task.done = false;
+                }
+                updateStorage(projectList);
 
-                })
             }))
 
             selectAllElements(`[edit-task]`).forEach(edit => edit.addEventListener('submit', (e) => {
@@ -79,26 +78,26 @@ function displayAll() {
                 const task = project.tasks.filter(task => task.id === id)[0];
                 [task.title, task.description, task.date, task.priority] = [title, description, date, priority];
 
-                selectAllElements('#done').forEach(done => done.addEventListener('click', () => {
-                    const id = done.getAttribute('done-id');
+
+
+                selectElement(`.TASK${id}`).querySelector('#done').addEventListener('click', () => {
+                    const taskID = id;
 
                     projectList = getFromStorage();
-                    const project_2 = projectList.filter(project => project.id === DOMProject.id)[0];
-                    const task = project_2.tasks.filter(task => task.id === id)[0];
-                    done.addEventListener('change', () => {
+                    const project_2 = projectList.filter(project_ => project_.id === project.id)[0];
+                    const task = project_2.tasks.filter(task => task.id === taskID)[0];
 
-                        task.done = done.checked ? true : false;
-                        updateStorage(projectList);
-                        if (done.checked == true) {
-                            selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,0.2)";
-                            selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "0.05";
-                        } else {
-                            selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,1)";
-                            selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "1";
-                        }
-
-                    })
-                }))
+                    if (selectElement(`.TASK${id}`).querySelector('#done').checked) {
+                        selectElement(`.TASK${taskID}`).style.color = "rgb(0,0,0,0.2)";
+                        selectElement(`.TASK${taskID}`).querySelector('.details').style.opacity = "0.05";
+                        task.done = true;
+                    } else if (selectElement(`.TASK${id}`).querySelector('#done').checked == false) {
+                        selectElement(`.TASK${taskID}`).style.color = "rgb(0,0,0,1)";
+                        selectElement(`.TASK${taskID}`).querySelector('.details').style.opacity = "1";
+                        task.done = false;
+                    }
+                    updateStorage(projectList);
+                })
 
                 updateStorage(projectList);
             }))
@@ -139,33 +138,35 @@ selectElement(`#add-task-form`).addEventListener('submit', (e) => {
 
 
     selectAllElements("[delete-task]").forEach(button => button.addEventListener('click', () => {
-        const id = button.id;
+            const id = button.id;
 
-        selectElement(`.TASK${id}`).innerHTML = ``;
+            selectElement(`.TASK${id}`).innerHTML = ``;
 
 
-        project.tasks = project.tasks.filter(task => task.id != id);
+            project.tasks = project.tasks.filter(task => task.id != id);
 
-        updateStorage(projectList);
-    }))
-    selectAllElements('#done').forEach(done => done.addEventListener('click', () => {
-        const id = done.getAttribute('done-id');
-
-        const task = project.tasks.filter(task => task.id === id)[0];
-        done.addEventListener('change', () => {
-
-            task.done = done.checked ? true : false;
             updateStorage(projectList);
-            if (done.checked == true) {
-                selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,0.2)";
-                selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "0.05";
-            } else {
-                selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,1)";
-                selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "1";
-            }
+        }))
+        // selectElement(`[done-id=${newTask.id}]`).addEventListener('click', () => {
+        //     const id = newTask.id;
 
-        })
-    }))
+    //     // const task = project.tasks.filter(task => task.id === id)[0];
+
+    //     projectList = getFromStorage();
+    //     const project_2 = projectList.filter(project_ => project_.id === project.id)[0];
+    //     const task = project_2.tasks.filter(task => task.id === id)[0];
+
+    //     task.done = done.checked ? true : false;
+    //     updateStorage(projectList);
+    //     if (done.checked == true) {
+    //         selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,0.2)";
+    //         selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "0.05";
+    //     } else {
+    //         selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,1)";
+    //         selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "1";
+    //     }
+
+    // })
 
     selectAllElements(`[edit-task]`).forEach(edit => edit.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -179,26 +180,26 @@ selectElement(`#add-task-form`).addEventListener('submit', (e) => {
         const task = project.tasks.filter(task => task.id === id)[0];
         [task.title, task.description, task.date, task.priority] = [title, description, date, priority];
 
-        selectAllElements('#done').forEach(done => done.addEventListener('click', () => {
-            const id = done.getAttribute('done-id');
+        // selectAllElements('#done').forEach(done => done.addEventListener('click', () => {
+        //     const id = done.getAttribute('done-id');
 
-            projectList = getFromStorage();
-            const project_2 = projectList.filter(project_ => project_.id === project.id)[0];
-            const task = project_2.tasks.filter(task => task.id === id)[0];
-            done.addEventListener('change', () => {
+        //     projectList = getFromStorage();
+        //     const project_2 = projectList.filter(project_ => project_.id === project.id)[0];
+        //     const task = project_2.tasks.filter(task => task.id === id)[0];
+        //     done.addEventListener('change', () => {
 
-                task.done = done.checked ? true : false;
-                updateStorage(projectList);
-                if (done.checked == true) {
-                    selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,0.2)";
-                    selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "0.05";
-                } else {
-                    selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,1)";
-                    selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "1";
-                }
+        //         task.done = done.checked ? true : false;
+        //         updateStorage(projectList);
+        //         if (done.checked == true) {
+        //             selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,0.2)";
+        //             selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "0.05";
+        //         } else {
+        //             selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,1)";
+        //             selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "1";
+        //         }
 
-            })
-        }))
+        //     })
+        // }))
 
         updateStorage(projectList);
     }))

@@ -143,13 +143,21 @@ export function addOneTask(project, title, done, description, date, priority, ta
 
     const doneInput = selectElement(`.TASK${taskID}`).querySelector('#done')
     doneInput.addEventListener('change', () => {
-        if (doneInput.checked == true) {
+
+        projectList = getFromStorage();
+        const project_2 = projectList.filter(project_ => project_.id === project.id)[0];
+        const task = project_2.tasks.filter(task => task.id === taskID)[0];
+
+        if (doneInput.checked) {
             selectElement(`.TASK${taskID}`).style.color = "rgb(0,0,0,0.2)";
             selectElement(`.TASK${taskID}`).querySelector('.details').style.opacity = "0.05";
-        } else {
+            task.done = true;
+        } else if (doneInput.checked == false) {
             selectElement(`.TASK${taskID}`).style.color = "rgb(0,0,0,1)";
             selectElement(`.TASK${taskID}`).querySelector('.details').style.opacity = "1";
+            task.done = false;
         }
+        updateStorage(projectList);
     })
 
     selectElement(`#${taskID}${priority}`).setAttribute('selected', '')
@@ -262,17 +270,37 @@ export function updateTask(project, title, description, date, priority, taskID, 
     selectElement(`#${taskID}${priority}`).setAttribute('selected', '')
 
     selectElement(`#${taskID}-update`).addEventListener('submit', (e) => {
-        e.preventDefault();
+            e.preventDefault();
 
-        selectElement(`[${taskID}-cancel-update-button]`).click();
+            selectElement(`[${taskID}-cancel-update-button]`).click();
 
-        let [title, description, date, priority] = [selectElement(`#title${taskID}`).value, selectElement(`#description${taskID}`).value, selectElement(`#date${taskID}`).value, selectElement(`#priority${taskID}`).value];
-        updateTask(project, title, description, date, priority, taskID, projectList)
+            let [title, description, date, priority] = [selectElement(`#title${taskID}`).value, selectElement(`#description${taskID}`).value, selectElement(`#date${taskID}`).value, selectElement(`#priority${taskID}`).value];
+            updateTask(project, title, description, date, priority, taskID, projectList)
 
-        const task = project.tasks.filter(task => task.id === taskID)[0];
-        [task.title, task.description, task.date, task.priority] = [title, description, date, priority];
-        updateStorage(projectList);
-    })
+            const task = project.tasks.filter(task => task.id === taskID)[0];
+            [task.title, task.description, task.date, task.priority] = [title, description, date, priority];
+            updateStorage(projectList);
+        })
+        // selectAllElements('#done').forEach(done => done.addEventListener('click', () => {
+        //     const id = done.getAttribute('done-id');
+
+    //     projectList = getFromStorage();
+    //     const project_2 = projectList.filter(project => project.id === DOMProject.id)[0];
+    //     const task = project_2.tasks.filter(task => task.id === id)[0];
+    //     done.addEventListener('change', () => {
+
+    //         task.done = done.checked ? true : false;
+    //         updateStorage(projectList);
+    //         if (done.checked == true) {
+    //             selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,0.2)";
+    //             selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "0.05";
+    //         } else {
+    //             selectElement(`.TASK${id}`).style.color = "rgb(0,0,0,1)";
+    //             selectElement(`.TASK${id}`).querySelector('.details').style.opacity = "1";
+    //         }
+
+    //     })
+    // }))
 }
 
 export function initProject() {

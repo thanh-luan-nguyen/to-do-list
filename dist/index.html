@@ -60,6 +60,8 @@
 
                     <div class="project-names" project-list>
 
+                        <div class="task-view-as" data-project-name id=""><i class="fas fa-tasks me-3"></i><span>exampleProject</span></div>
+
                     </div>
 
                 </div>
@@ -111,6 +113,27 @@
             </div>
 
             <div class="content">
+
+                <div class="view-as d-flex justify-content-between">
+                    <span>exampleProject</span>
+                    <!-- <div class="btn-group dropdown">
+                        <button type="button" class="btn dropdown-toggle shadow-none " data-bs-toggle="dropdown"><span>Filter</span>: <em class="me-1" sort-by>default</em></button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item" data-sort>unfinished</li>
+                            <li class="dropdown-item" data-sort>date</li>
+                            <li class="dropdown-item" data-sort>priority</li>
+                        </ul>
+                    </div> -->
+                </div>
+
+                <div class="add-task mb-2" data-bs-toggle="modal" data-bs-target="#add-task">
+                    <i class="fas fa-plus me-3"><span>New Task</span></i>
+                </div>
+
+                <div class="task-list">
+
+                    <i class="delete-project-button fas fa-times" delete-project title="Delete Project"></i>
+                </div>
 
             </div>
         </section>
