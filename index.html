@@ -28,12 +28,12 @@
                         <div class="modal-body text-center">
                             <label for="project-title" class=" fs-3">New Project</label>
                             <div class="text-end" style="color:rgba(0, 0, 0, 0.5)">Max: 20</div>
-                            <input type="text" class="form-control shadow-none mt-2 text-center" id="project-title" maxlength="20" required>
+                            <input type="text" class="form-control shadow-none mt-2 text-center" maxlength="20" input-project-name required>
 
                         </div>
                         <div class="container p-3 pt-0 text-center">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" cancel-project-button>Cancel</button>
-                            <button type="submit" class="btn btn-primary" add-project-button>Add</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" button-cancel-project>Cancel</button>
+                            <button type="submit" class="btn btn-primary" button-add-project>Add</button>
                         </div>
                     </form>
                 </div>
@@ -43,9 +43,9 @@
         <aside>
 
             <div class="view mb-3">
-                <div class="task-view-as"><i class="fas fa-hdd "></i><span>All</span></div>
-                <div class="task-view-as"><i class="fas fa-calendar-day"></i><span>Today</span></div>
-                <div class="task-view-as"><i class="fas fa-calendar-week"></i><span>This Week</span></div>
+                <div class="task-view-as" project><i class="fas fa-hdd "></i><span>All</span></div>
+                <div class="task-view-as" project><i class="fas fa-calendar-day"></i><span>Today</span></div>
+                <div class="task-view-as" project><i class="fas fa-calendar-week"></i><span>This Week</span></div>
             </div>
 
             <div class="projects">
@@ -60,7 +60,7 @@
 
                     <div class="project-names" project-list>
 
-                        <div class="task-view-as" data-project-name id=""><i class="fas fa-tasks me-3"></i><span>exampleProject</span></div>
+                        <!-- <div class="task-view-as"><i class="fas fa-tasks me-3"></i><span>exampleProject</span></div> -->
 
                     </div>
 
@@ -78,24 +78,24 @@
                             <div class="modal-body">
                                 <div class="mb-1">
                                     <label for="title"></label>Task title</label>
-                                    <input type="text" id="title" class="form-control shadow-none mt-1" maxlength="30" required>
+                                    <input type="text" id="title" class="form-control shadow-none mt-1" maxlength="30" task-name required>
                                     <div class="word-count text-end" style="color:rgba(0, 0, 0, 0.5)">Max: 30</div>
                                 </div>
 
                                 <div class="mb-1">
                                     <label for="description">Detailed Description</label>
-                                    <textarea class="form-control shadow-none mt-1" id="description" style="height: 100px;resize:none;" maxlength="200"></textarea>
+                                    <textarea class="form-control shadow-none mt-1" id="description" style="height: 100px;resize:none;" task-descript maxlength="200"></textarea>
                                     <div class="word-count text-end" style="color:rgba(0, 0, 0, 0.5)">Max: 200</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col">
                                         <label for="date">Date</label>
-                                        <input id="date" type="date" class="form-control shadow-none mt-1">
+                                        <input id="date" type="date" class="form-control shadow-none mt-1" task-date>
                                     </div>
                                     <div class="col">
                                         <label for="priority">Priority</label>
-                                        <select id="priority" class="form-control shadow-none mt-1">
+                                        <select id="priority" class="form-control shadow-none mt-1" task-priority>
                                             <option selected value="normal">Normal</option>
                                             <option value="important">Important</option>
                                             <option value="urgent">Urgent</option>
@@ -104,8 +104,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer border-top-0">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" cancel-button>Cancel</button>
-                                <button type="submit" class="btn btn-primary" id="add-task-button">Add</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" button-cancel-add-task>Cancel</button>
+                                <button type="submit" class="btn btn-primary" button-add-new-task>Add</button>
                             </div>
                         </form>
                     </div>
@@ -115,15 +115,14 @@
             <div class="content">
 
                 <div class="view-as d-flex justify-content-between">
-                    <span>exampleProject</span>
-                    <!-- <div class="btn-group dropdown">
-                        <button type="button" class="btn dropdown-toggle shadow-none " data-bs-toggle="dropdown"><span>Filter</span>: <em class="me-1" sort-by>default</em></button>
+                    <span>All</span>
+                    <div class="dropstart">
+                        <button type="button" class="btn dropdown-toggle shadow-none " data-bs-toggle="dropdown"><span>Filter</span>: <em class="me-1" sort-by>all</em></button>
                         <ul class="dropdown-menu">
-                            <li class="dropdown-item" data-sort>unfinished</li>
-                            <li class="dropdown-item" data-sort>date</li>
-                            <li class="dropdown-item" data-sort>priority</li>
+                            <li class="dropdown-item" data-sort>all</li>
+                            <li class="dropdown-item" data-sort>incomplete</li>
                         </ul>
-                    </div> -->
+                    </div>
                 </div>
 
                 <div class="add-task mb-2" data-bs-toggle="modal" data-bs-target="#add-task">
@@ -131,10 +130,111 @@
                 </div>
 
                 <div class="task-list">
+                    <div TASK>
+                        <div class="task">
 
-                    <i class="delete-project-button fas fa-times" delete-project title="Delete Project"></i>
+                            <div class="first-group"><input class="form-check-input shadow-none me-3" type="checkbox" id="done" done-id=${taskID} ${done} checked/><span>${title}</span></div>
+                            <div class="second-group">
+                                <i class="fas fa-${priorityIcon}"></i>
+
+                                <button type="button" class="details btn btn-secondary shadow-none" data-bs-toggle="collapse" data-bs-target="#abc">Details</button>
+
+                                <span class="date">2021/02/15</span>
+
+                                <i class="fas fa-edit edit" data-bs-toggle="modal" title="edit" data-bs-target="#edit-task"></i>
+
+                                <i class="fas fa-trash-alt delete" id="${taskID}" delete-task title="delete"></i>
+                            </div>
+
+                        </div>
+
+                        <div class="collapse" id="abc">
+                            <div class="card card-body rounded-0 border-top-0 border-bottom-0 pt-2 pb-0" style="background-color: oldlace;">
+                                <p class="mb-0"><b>Project: </b>${project.title}</p>
+                                <p class="mb-0"><b>Date: </b>2021-02-15</p>
+                                <p class="mb-0"><b>Priority: </b>${priority} <i class="fas fa-${priorityIcon}"></i></p>
+                                <p class="mb-0">
+                                    <b>Description: </b>${description}
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div TASK>
+                        <div class="task">
+
+                            <div class="first-group"><input class="form-check-input shadow-none me-3" type="checkbox" id="done" done-id=${taskID} ${done}/><span>${title}</span></div>
+                            <div class="second-group">
+                                <i class="fas fa-${priorityIcon}"></i>
+
+                                <button type="button" class="details btn btn-secondary shadow-none" data-bs-toggle="collapse" data-bs-target="#xyz">Details</button>
+
+                                <span class="date">2021/02/15</span>
+
+                                <i class="fas fa-edit edit" data-bs-toggle="modal" title="edit" data-bs-target="#edit-task"></i>
+
+                                <i class="fas fa-trash-alt delete" id="${taskID}" delete-task title="delete"></i>
+                            </div>
+
+                        </div>
+
+                        <div class="collapse" id="xyz">
+                            <div class="card card-body rounded-0 border-top-0 border-bottom-0 pt-2 pb-0" style="background-color: oldlace;">
+                                <p class="mb-0"><b>Project: </b>${project.title}</p>
+                                <p class="mb-0"><b>Date: </b>2021-05-14</p>
+                                <p class="mb-0"><b>Priority: </b>${priority} <i class="fas fa-${priorityIcon}"></i></p>
+                                <p class="mb-0">
+                                    <b>Description: </b>${description}
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+
                 </div>
+                <i class="delete-project-button fas fa-times" delete-project title="Delete Project"></i>
 
+                <div class="modal" id="edit-task" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form id="${taskID}-update" edit-task task-id="${taskID}">
+                                <div class="modal-body">
+                                    <div class="mb-1">
+                                        <label>Task title</label>
+                                        <input type="text" class="form-control shadow-none mt-1" id="title${taskID}" value="${title}" maxlength="30" required>
+                                        <div class="word-count text-end" style="color:rgba(0, 0, 0, 0.5)">Max: 30</div>
+                                    </div>
+
+                                    <div class="mb-1">
+                                        <label>Detailed Description</label>
+                                        <textarea class="form-control shadow-none mt-1" id="description${taskID}" style="height: 100px;resize:none;" maxlength="200">${description}</textarea>
+                                        <div class="word-count text-end" style="color:rgba(0, 0, 0, 0.5)">Max: 200</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <label>Date</label>
+                                            <input type="date" class="form-control shadow-none mt-1" id="date${taskID}" value="2021-02-15">
+                                        </div>
+                                        <div class="col">
+                                            <label>Priority</label>
+                                            <select class="form-control shadow-none mt-1" id="priority${taskID}" aaa>
+                                                <option value="normal" id="${taskID}normal">Normal</option>
+                                                <option value="important" id="${taskID}important">Important</option>
+                                                <option value="urgent" id="${taskID}urgent">Urgent</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer border-top-0">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ${taskID}-cancel-update-button>Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
