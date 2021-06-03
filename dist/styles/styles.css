@@ -98,11 +98,6 @@ main section .content .view-as {
   margin-bottom: 8px;
 }
 
-main section .content .view-as [sort-by] {
-  display: inline-block;
-  width: 48px;
-}
-
 main section .content .add-task {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -156,7 +151,7 @@ main section .content .task .second-group .delete {
 
 main section .content .task .second-group span.date {
   display: inline-block;
-  width: 36px;
+  width: 78px;
   font-size: 0.8em;
 }
 

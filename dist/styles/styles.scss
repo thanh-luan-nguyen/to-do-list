@@ -68,10 +68,6 @@ main {
                     i {
                         display: inline-block;
                         width: 14px;
-                        // transition: 0.3s;
-                        // &:hover {
-                        //     color: red !important;
-                        // }
                     }
                 }
             }
@@ -92,10 +88,11 @@ main {
                 font-weight: 700;
                 margin-left: 1em;
                 margin-bottom: 8px;
-                [sort-by] {
-                    display: inline-block;
-                    width: 48px;
-                }
+                // [sort-by] {
+                //     display: inline-block;
+                //     width: 100px;
+                //     text-align: left;
+                // }
             }
             .add-task {
                 @extend %shared-property;
@@ -138,7 +135,7 @@ main {
                     }
                     span.date {
                         display: inline-block;
-                        width: 36px;
+                        width: 78px;
                         font-size: 0.8em;
                     }
                     .delete {
