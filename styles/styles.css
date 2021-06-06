@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
+html {
+  overflow: hidden;
+}
+
 body {
   color: white;
   background-color: oldlace;
@@ -21,6 +25,11 @@ main aside .task-view-as, main section .content .add-task, main section .content
 }
 
 main aside .task-view-as:hover, main section .content .add-task:hover, main section .content .task:hover {
+  background-color: #e6e6e6;
+  border-radius: 10px;
+}
+
+.active {
   background-color: #e6e6e6;
   border-radius: 10px;
 }
@@ -86,7 +95,7 @@ main section {
 }
 
 main section .content {
-  overflow: hidden;
+  height: auto;
   margin: 1.5em auto;
   width: 93%;
 }
