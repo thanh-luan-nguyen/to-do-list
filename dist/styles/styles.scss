@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+html {
+    overflow: hidden;
+}
+
 body {
     color: white;
     background-color: oldlace;
@@ -18,6 +22,11 @@ body {
         background-color: rgb(230, 230, 230);
         border-radius: 10px;
     }
+}
+
+.active {
+    background-color: rgb(230, 230, 230);
+    border-radius: 10px;
 }
 
 %transform {
@@ -79,7 +88,7 @@ main {
         width: 100%;
         background-color: oldlace;
         .content {
-            overflow: hidden;
+            height: auto;
             margin: 1.5em auto;
             // max-width: 700px;
             width: 93%;
@@ -88,7 +97,7 @@ main {
                 font-weight: 700;
                 margin-left: 1em;
                 margin-bottom: 8px;
-                // [sort-by] {
+                // [data-sort] {
                 //     display: inline-block;
                 //     width: 100px;
                 //     text-align: left;
