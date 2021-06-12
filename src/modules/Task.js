@@ -40,7 +40,7 @@ export default class Task {
             case 'important':
                 iconPriority = "flag text-warning";
                 break;
-            case 'urgent':
+            case 'crucial':
                 iconPriority = "exclamation-triangle text-danger"
                 break;
         }
@@ -83,5 +83,4 @@ export default class Task {
     getIDForTask() {
         return this.getName().split(' ').join('');
     }
-
 }

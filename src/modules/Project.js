@@ -1,5 +1,4 @@
 import { isToday, isThisWeek } from 'date-fns'
-import { Task } from './Task'
 
 export default class Project {
     constructor(name) {
@@ -32,11 +31,8 @@ export default class Project {
         return this.tasks.filter(task => isThisWeek(task.getDateFns(), { weekStartsOn: 1 }))
     }
     getTask(taskName) {
-            return this.tasks.find(task => task.getName() === taskName)
-        }
-        // getTaskByID(taskID) {
-        //     return this.tasks.find(task => task.getIDForTask() === taskID)
-        // }
+        return this.tasks.find(task => task.getName() === taskName)
+    }
     addTask(task) {
         this.tasks.push(task);
     }

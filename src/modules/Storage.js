@@ -30,6 +30,16 @@ export default class Storage {
         todoList.addProject(newProjectName);
         this.saveTodoList(todoList);
     }
+    static addNewTaskToThisProject(projectName, newTask) {
+        const todoList = this.getTodoList();
+        todoList.getProject(projectName).addTask(newTask)
+        this.saveTodoList(todoList);
+    }
+    static deleteTaskFromThisProject(projectName, taskID) {
+        const todoList = this.getTodoList();
+        todoList.getProject(projectName).deleteTask(taskID);
+        this.saveTodoList(todoList);
+    }
     static getProject(projectName) {
         return this.getTodoList().getProject(projectName);
     }

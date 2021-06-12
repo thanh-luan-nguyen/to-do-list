@@ -253,7 +253,6 @@ export default class UI {
     }
     static switchDoneStatus() {
         this.checked ? this.removeAttribute('checked') : this.setAttribute('checked', '');
-
         UI.addDoneEffectAll(this);
     }
     static addDoneEffectAll(box) {
@@ -261,8 +260,9 @@ export default class UI {
             const todoList = Storage.getTodoList()
             const task = todoList.getProject(box.getAttribute("done-checkbox")).getTask(taskName);
             task.switchDoneValue();
-            UI.addDoneEffect(task);
+            // UI.addDoneEffect(task);
             Storage.saveTodoList(todoList);
+            UI.addAllTasksOfThisProjectToUI();
         }
         // edit 
     static initAllEditButtons() {
@@ -311,9 +311,7 @@ export default class UI {
     static deleteThisTask() {
         const taskID = this.getAttribute('delete-task');
         document.querySelector(`[TASK${taskID}]`).outerHTML = '';
-        const todoList = Storage.getTodoList();
-        todoList.deleteTask(UI.getCurrentProjectName(), taskID);
-        Storage.saveTodoList(todoList);
+        Storage.deleteTaskFromThisProject(UI.getCurrentProjectName(), taskID)
     }
 
     static closeNavInSmallDevices() {
@@ -357,18 +355,9 @@ export default class UI {
             document.querySelector('[task-priority]').value,
             document.querySelector('[task-date]').value
         ];
-        const todoList = Storage.getTodoList();
-        const thisProjectName = UI.getCurrentProjectName();
-        const thisProject = todoList.getProject(thisProjectName);
+        const thisProjectName = UI.getCurrentProjectName()
 
-        const newTask = new Task(thisProjectName, ...newTaskInfos);
-        thisProject.addTask(newTask);
-        // if (thisProjectName !== "All") {
-        //     const defaultProjectAll = todoList.getProject("All");
-        //     defaultProjectAll.addTask(newTask);
-        // }
-
-        Storage.saveTodoList(todoList);
+        Storage.addNewTaskToThisProject(thisProjectName, new Task(thisProjectName, ...newTaskInfos))
     }
     static clearInputsOfAddTask() {
         document.querySelector('[task-name]').value = '';
