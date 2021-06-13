@@ -1,6 +1,7 @@
 import Storage from './Storage'
 import Task from './Task';
 import { performUIEffects } from './UIEffects'
+import { isPast, differenceInDays, formatISO } from 'date-fns'
 
 export default class UI {
 
@@ -222,7 +223,7 @@ export default class UI {
                         <div class="collapse" id="_${task.getIDForTask()}">
                             <div class="card card-body rounded-0 border-top-0 border-bottom-0 pt-2 pb-0" style="background-color: oldlace;">
                                 <p class="mb-0"><b>Project: </b><span>${task.getProjectName()}</span></p>
-                                <p class="mb-0"><b>Date: </b>${task.getDateFormatted()}</p>
+                                <p class="mb-0"><b>Date: </b><span class="date">${task.getDateFormatted()}</span></p>
                                 <p class="mb-0"><b>Priority: </b>${task.getPriority()} <i class="fas fa-${task.getIconPriority()}"></i></p>
                                 <p class="mb-0">
                                     <b>Description: </b>${task.getDescript()}
@@ -231,6 +232,7 @@ export default class UI {
                         </div>
                     </div>`
                 UI.addDoneEffect(task);
+                UI.isPastEffect(task);
             })
             UI.initAllCheckBoxes();
             UI.initAllEditButtons();
@@ -314,6 +316,27 @@ export default class UI {
         Storage.deleteTaskFromThisProject(UI.getCurrentProjectName(), taskID)
     }
 
+    static isPastEffect(task) {
+        // const TASK = document.querySelector(``);
+        const date = document.querySelector(`[TASK${task.getIDForTask()}] span.date`);
+        const descriptDate = document.querySelector(`#_${task.getIDForTask()} .date`)
+
+        const d = task.getDate().split('-').map(a => parseInt(a));
+        const D = new Date().toISOString().slice(0, 10).split('-').map(a => parseInt(a));
+
+        if (differenceInDays(
+                new Date(d[0], d[1] - 1, d[2]),
+                new Date(D[0], D[1] - 1, D[2])
+            ) <= 3) {
+            date.style.cssText = "color:#f0ad4e;font-weight: 900;"
+            descriptDate.style.cssText = "color:#f0ad4e;font-weight: 900;"
+        }
+
+        if (isPast(new Date(d[0], d[1] - 1, d[2] + 1))) {
+            date.style.cssText = "color:red;font-weight: 700;";
+            descriptDate.style.cssText = "color:red;font-weight: 700;";
+        }
+    }
     static closeNavInSmallDevices() {
         const x = window.matchMedia("(max-width: 950px)");
         if (x.matches) document.querySelector('.openNav').click();

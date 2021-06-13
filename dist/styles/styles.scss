@@ -90,18 +90,12 @@ main {
         .content {
             height: auto;
             margin: 1.5em auto;
-            // max-width: 700px;
             width: 93%;
             .view-as {
                 font-size: 2em;
                 font-weight: 700;
                 margin-left: 1em;
                 margin-bottom: 8px;
-                // [data-sort] {
-                //     display: inline-block;
-                //     width: 100px;
-                //     text-align: left;
-                // }
             }
             .add-task {
                 @extend %shared-property;
@@ -150,7 +144,7 @@ main {
                     .delete {
                         color: rgba(0, 0, 0, 0.2);
                         &:hover {
-                            color: red !important;
+                            color: red;
                         }
                     }
                 }
@@ -170,6 +164,10 @@ main {
             }
         }
     }
+}
+
+.date-red-color {
+    color: red;
 }
 
 footer {

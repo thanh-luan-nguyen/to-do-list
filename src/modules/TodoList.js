@@ -1,5 +1,6 @@
 import Project from './Project';
 import Task from './Task';
+import { formatISO } from 'date-fns'
 
 export default class TodoList {
     constructor() {
@@ -10,13 +11,13 @@ export default class TodoList {
 
         this.projects.push(new Project("freeCodeCamp"));
         this.getProject("freeCodeCamp").setTasks([
-            new Task("freeCodeCamp", "ramdom-quote-machine", "organizing your JS code", "normal", "2021-09-30"),
+            new Task("freeCodeCamp", "ramdom-quote-machine", "organizing your JS code", "normal", new Date().toISOString().slice(0, 10)),
             new Task("freeCodeCamp", "url-shortener-microservice", "APIs and Microservice", "normal", "2021-10-30"),
         ])
 
         this.projects.push(new Project("The Odin Project"));
         this.getProject("The Odin Project").setTasks([
-            new Task("The Odin Project", "to-do-list", "organizing your JS code", "normal", "2021-06-13"),
+            new Task("The Odin Project", "to-do-list", "organizing your JS code", "normal", "2021-06-10"),
             new Task("The Odin Project", "weather-app", "asynchronous JS and APIs", "important", ""),
             new Task("The Odin Project", "shopping-cart", "React JS", "crucial", "2021-07-30"),
         ])
