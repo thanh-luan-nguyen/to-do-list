@@ -1,7 +1,7 @@
 import Storage from './Storage'
 import Task from './Task';
 import { performUIEffects } from './UIEffects'
-import { isPast, differenceInDays, formatISO } from 'date-fns'
+import { isPast, differenceInDays} from 'date-fns'
 
 export default class UI {
 
@@ -71,8 +71,8 @@ export default class UI {
             projectList.innerHTML += `
             <div class="task-view-as" project><i class="fas fa-tasks me-3"></i><span>${projectName}</span></div>`
             UI.closeNavInSmallDevices();
-        }
-        // init submit project END
+    }
+    // init submit project END
 
     static initAllButtonProjects() {
         document.querySelectorAll('[project]')
@@ -166,11 +166,10 @@ export default class UI {
         items.forEach(item => item.addEventListener('click', UI.filterTasks))
     }
     static filterTasks() {
-            const filterBy = this.innerText;
-            Storage.changeProjectTaskFilter(UI.getCurrentProjectName(), filterBy);
-            UI.addAllTasksOfThisProjectToUI();
-        }
-        // 
+        const filterBy = this.innerText;
+        Storage.changeProjectTaskFilter(UI.getCurrentProjectName(), filterBy);
+        UI.addAllTasksOfThisProjectToUI();
+    }
 
     // delete Project
     static initDeleteProjectButton() {
@@ -179,29 +178,25 @@ export default class UI {
     }
     static deleteThisProject() {
         const projectName = document.querySelector('[project-name]').innerText;
-        const todoList = Storage.getTodoList();
-        todoList.deleteProject(projectName);
-        Storage.saveTodoList(todoList);
+        Storage.deleteProject(projectName);
         UI.clearProjectUIContent();
         UI.loadProjects();
 
     }
     static clearProjectUIContent() {
-            const projectContentPage = document.querySelector('.content');
-            projectContentPage.innerHTML = ''
-            UI.closeNavInSmallDevices();
-        }
-        // delete Project END
+        const projectContentPage = document.querySelector('.content');
+        projectContentPage.innerHTML = ''
+        UI.closeNavInSmallDevices();
+    }
+    // delete Project END
 
     static addAllTasksOfThisProjectToUI() {
             const projectName = UI.getCurrentProjectName();
             let tasks = Storage.getTasksFromOneProject(projectName);
 
-            if (projectName === "All" || projectName === "Today" || projectName === "This Week")
-                tasks = Storage.getDefaultTasks(projectName)
+            if (projectName === "All" || projectName === "Today" || projectName === "This Week") tasks = Storage.getDefaultTasks(projectName)
 
-            if (Storage.getFilterOfProject(projectName) === "incomplete")
-                tasks = tasks.filter(task => task.getDone() === false)
+            if (Storage.getFilterOfProject(projectName) === "incomplete") tasks = tasks.filter(task => task.getDone() === false)
 
             document.querySelector('.task-list').innerHTML = '';
             tasks.forEach(task => {
@@ -238,7 +233,7 @@ export default class UI {
             UI.initAllEditButtons();
             UI.initAllDeleteButtons();
         }
-        // done Checkbox
+    // done Checkbox
     static addDoneEffect(task) {
         const TASK = document.querySelector(`[TASK${task.getIDForTask()}]`);
         if (task.getDone()) {
@@ -258,15 +253,15 @@ export default class UI {
         UI.addDoneEffectAll(this);
     }
     static addDoneEffectAll(box) {
-            const taskName = box.nextElementSibling.innerText;
-            const todoList = Storage.getTodoList()
-            const task = todoList.getProject(box.getAttribute("done-checkbox")).getTask(taskName);
-            task.switchDoneValue();
-            // UI.addDoneEffect(task);
-            Storage.saveTodoList(todoList);
-            UI.addAllTasksOfThisProjectToUI();
-        }
-        // edit 
+        const taskName = box.nextElementSibling.innerText;
+        const todoList = Storage.getTodoList()
+        const task = todoList.getProject(box.getAttribute("done-checkbox")).getTask(taskName);
+        task.switchDoneValue();
+        // UI.addDoneEffect(task);
+        Storage.saveTodoList(todoList);
+        UI.addAllTasksOfThisProjectToUI();
+    }
+    // edit 
     static initAllEditButtons() {
         const buttonsEditTask = document.querySelectorAll('[edit-button]');
         buttonsEditTask.forEach(button => button.addEventListener('click', UI.openEditTask))
@@ -304,8 +299,19 @@ export default class UI {
                 document.querySelector('[button-cancel-edit-task]').click();
                 UI.addAllTasksOfThisProjectToUI();
             }
-        }
-        // delete
+    }
+    static saveTaskToStorage() {
+        const newTaskInfos = [
+            document.querySelector('[task-name]').value,
+            document.querySelector('[task-descript]').value,
+            document.querySelector('[task-priority]').value,
+            document.querySelector('[task-date]').value
+        ];
+        const thisProjectName = UI.getCurrentProjectName()
+
+        Storage.addNewTaskToThisProject(thisProjectName, new Task(thisProjectName, ...newTaskInfos))
+    }
+    // delete
     static initAllDeleteButtons() {
         const buttonsDeleteTask = document.querySelectorAll('[delete-task]');
         buttonsDeleteTask.forEach(button => button.addEventListener('click', UI.deleteThisTask))
@@ -315,9 +321,8 @@ export default class UI {
         document.querySelector(`[TASK${taskID}]`).outerHTML = '';
         Storage.deleteTaskFromThisProject(UI.getCurrentProjectName(), taskID)
     }
-
+    // effects
     static isPastEffect(task) {
-        // const TASK = document.querySelector(``);
         const date = document.querySelector(`[TASK${task.getIDForTask()}] span.date`);
         const descriptDate = document.querySelector(`#_${task.getIDForTask()} .date`)
 
@@ -348,16 +353,6 @@ export default class UI {
             sortBy.innerText = e.innerText;
         }))
     }
-
-    static addOneTask(e) {
-        e.preventDefault();
-        if (!UI.taskNameAlreadyExists()) {
-            UI.saveTaskToStorage();
-            UI.addAllTasksOfThisProjectToUI();
-            UI.clearInputsOfAddTask();
-            document.querySelector('[button-cancel-add-task]').click();
-        }
-    }
     static taskNameAlreadyExists(isEdittingTask = false, taskName) {
         let allTasks = Storage.getTodoList().getAllTasks();
         let newTaskName = document.querySelector('[task-name]').value;
@@ -371,16 +366,16 @@ export default class UI {
         }
         return false;
     }
-    static saveTaskToStorage() {
-        const newTaskInfos = [
-            document.querySelector('[task-name]').value,
-            document.querySelector('[task-descript]').value,
-            document.querySelector('[task-priority]').value,
-            document.querySelector('[task-date]').value
-        ];
-        const thisProjectName = UI.getCurrentProjectName()
-
-        Storage.addNewTaskToThisProject(thisProjectName, new Task(thisProjectName, ...newTaskInfos))
+    // effects END
+    
+    static addOneTask(e) {
+        e.preventDefault();
+        if (!UI.taskNameAlreadyExists()) {
+            UI.saveTaskToStorage();
+            UI.addAllTasksOfThisProjectToUI();
+            UI.clearInputsOfAddTask();
+            document.querySelector('[button-cancel-add-task]').click();
+        }
     }
     static clearInputsOfAddTask() {
         document.querySelector('[task-name]').value = '';

@@ -1,6 +1,5 @@
 import Project from './Project';
 import Task from './Task';
-import { formatISO } from 'date-fns'
 
 export default class TodoList {
     constructor() {
