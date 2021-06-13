@@ -169,7 +169,7 @@ main section .content .task .second-group .delete {
 }
 
 main section .content .task .second-group .delete:hover {
-  color: red !important;
+  color: red;
 }
 
 main section .content .delete-project-button {
@@ -187,6 +187,10 @@ main section .content .delete-project-button:hover {
   transition: 0.5s;
   -webkit-transform: scale(1.3) rotate(90deg);
           transform: scale(1.3) rotate(90deg);
+}
+
+.date-red-color {
+  color: red;
 }
 
 footer {
