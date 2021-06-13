@@ -226,8 +226,8 @@ export default class UI {
                             </div>
                         </div>
                     </div>`
-                UI.addDoneEffect(task);
                 UI.isPastEffect(task);
+                UI.addDoneEffect(task);
             })
             UI.initAllCheckBoxes();
             UI.initAllEditButtons();
@@ -239,6 +239,8 @@ export default class UI {
         if (task.getDone()) {
             TASK.style.color = "rgb(0,0,0,0.2)";
             TASK.querySelector('.details').style.opacity = "0.05";
+                
+
         } else {
             TASK.style.color = "rgb(0,0,0)";
             TASK.querySelector('.details').style.opacity = "1";
@@ -333,13 +335,13 @@ export default class UI {
                 new Date(d[0], d[1] - 1, d[2]),
                 new Date(D[0], D[1] - 1, D[2])
             ) <= 3) {
-            date.style.cssText = "color:#f0ad4e;font-weight: 900;"
-            descriptDate.style.cssText = "color:#f0ad4e;font-weight: 900;"
+            date.style.cssText = `color:rgb(240, 173, 78${task.getDone()?', 0.2':', 1'});font-weight: 900;`
+            descriptDate.style.cssText = `color:rgb(240, 173, 78${task.getDone()?', 0.2':', 1'});font-weight: 900;`
         }
 
         if (isPast(new Date(d[0], d[1] - 1, d[2] + 1))) {
-            date.style.cssText = "color:red;font-weight: 700;";
-            descriptDate.style.cssText = "color:red;font-weight: 700;";
+            date.style.cssText = `color:rgb(255, 0, 0${task.getDone()?', 0.2':', 1'});font-weight: 700;`
+            descriptDate.style.cssText = `color:rgb(255, 0, 0${task.getDone()?', 0.2':', 1'});font-weight: 700;`
         }
     }
     static closeNavInSmallDevices() {
