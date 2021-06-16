@@ -234,31 +234,37 @@ export default class UI {
     document.querySelector('.task-list').innerHTML = ''
     tasks.forEach(task => {
       document.querySelector('.task-list').innerHTML += `
-                    <div TASK${task.getIDForTask()}>
-                        <div class="task">
-                            <div class="first-group">
-                                <input class="form-check-input shadow-none me-3" type="checkbox"  ${task.getDoneCheckboxState()} done-checkbox="${task.getProjectName()}"/>
-                                <span>${task.getName()}</span>
-                            </div>
-                            <div class="second-group">
-                                <i class="icon fas fa-${task.getIconPriority()}"></i>
-                                <button type="button" class="details btn btn-secondary shadow-none" data-bs-toggle="collapse" data-bs-target="#_${task.getIDForTask()}">Details</button>
-                                <span class="date">${task.getDateFormatted()}</span>
-                                <i class="fas fa-edit edit" data-bs-toggle="modal" title="edit" data-bs-target="#edit-task" edit-button="${task.getName()}"></i>
-                                <i class="fas fa-trash-alt delete" delete-task="${task.getIDForTask()}" title="delete"></i>
-                            </div>
-                        </div>
-                        <div class="collapse" id="_${task.getIDForTask()}">
-                            <div class="card card-body rounded-0 border-top-0 border-bottom-0 pt-2 pb-0" style="background-color: oldlace;">
-                                <p class="mb-0"><b>Project: </b><span>${task.getProjectName()}</span></p>
-                                <p class="mb-0"><b>Date: </b><span class="date">${task.getDateFormatted()}</span></p>
-                                <p class="mb-0"><b>Priority: </b>${task.getPriority()} <i class="icon fas fa-${task.getIconPriority()}"></i></p>
-                                <p class="mb-0">
-                                    <b>Description: </b>${task.getDescript()}
-                                </p>
-                            </div>
-                        </div>
-                    </div>`
+        <div TASK${task.getIDForTask()}>
+            <div class="task">
+                <div class="first-group">
+                    <input class="form-check-input shadow-none me-3" type="checkbox"  ${task.getDoneCheckboxState()} done-checkbox="${task.getProjectName()}"/>
+                    <span>${task.getName()}</span>
+                </div>
+                <div class="second-group">
+                    <i class="icon fas fa-${task.getIconPriority()}"></i>
+                    <button type="button" class="details btn btn-secondary shadow-none" data-bs-toggle="collapse" data-bs-target="#_${task.getIDForTask()}">Details</button>
+                    <span class="date">${task.getDateFormatted()}</span>
+                    <i class="fas fa-edit edit" data-bs-toggle="modal" title="edit" data-bs-target="#edit-task" edit-button="${task.getName()}"></i>
+                    <i class="fas fa-trash-alt delete" delete-task="${task.getIDForTask()}" title="delete"></i>
+                </div>
+            </div>
+            <div class="collapse" id="_${task.getIDForTask()}">
+                <div class="card card-body rounded-0 border-top-0 border-bottom-0 pt-2 pb-0" style="background-color: oldlace;">
+                ${
+                  projectName === 'All' ||
+                  projectName === 'Today' ||
+                  projectName === 'This Week'
+                    ? `<p class="mb-0"><b>Project: </b><span>${task.getProjectName()}</span></p>`
+                    : ''
+                }
+                    <p class="mb-0"><b>Date: </b><span class="date">${task.getDateFormatted()}</span></p>
+                    <p class="mb-0"><b>Priority: </b>${task.getPriority()} <i class="icon fas fa-${task.getIconPriority()}"></i></p>
+                    <p class="mb-0">
+                        <b>Description: </b>${task.getDescript()}
+                    </p>
+                </div>
+            </div>
+        </div>`
       UI.isPastEffect(task)
       UI.addDoneEffect(task)
     })
@@ -270,7 +276,6 @@ export default class UI {
   static addDoneEffect(task) {
     const TASK = document.querySelector(`[TASK${task.getIDForTask()}]`)
     const icons = TASK.querySelectorAll(`i.icon`)
-    console.log(icons)
     if (task.getDone()) {
       TASK.style.color = 'rgb(0,0,0,0.2)'
       TASK.querySelector('.details').style.opacity = '0.05'
@@ -329,7 +334,8 @@ export default class UI {
   static initSubmitEditTask() {
     document
       .querySelector('[submit-edit-task]')
-      .addEventListener('submit', () => {
+      .addEventListener('submit', e => {
+        e.preventDefault()
         UI.updateTask(UI.taskNameBeingEdited)
       })
   }
