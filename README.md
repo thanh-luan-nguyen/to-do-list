@@ -1,3 +1,3 @@
-# to-do-list.github.io
+# to-do-list
 
-[live demo](https://nguyen-thanh-luan-github.github.io/to-do-list.github.io/)
+[live demo](https://thanh-luan-nguyen.github.io/to-do-list/)
